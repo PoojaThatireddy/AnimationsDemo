@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        tools:context="com.appit.AnimationsAndBottomSheet.VerifyMobileNumber">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/verify_mobile_number"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintLeft_toLeftOf="@+id/textView2"
+            app:layout_constraintRight_toRightOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:srcCompat="@drawable/view" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.14"
+            android:text="@string/yetisnap_will_send_an_sms_message_to_verify_phone_number_enter_your_country_code_and_phone_number"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="40dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="40dp" />
+
+        <EditText
+            android:id="@+id/country_code_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="+1"
+            android:inputType="number"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toLeftOf="@+id/phone_num_id"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <EditText
+            android:id="@+id/phone_num_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:ems="10"
+            android:hint="202-303-0668"
+            android:inputType="number"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            app:layout_constraintRight_toLeftOf="@+id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/tv_next_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_32"
+            android:background="@drawable/tv_rounded_rectangle"
+            android:gravity="center"
+            android:text="@string/next"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toLeftOf="@+id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/phone_num_id" />
+
+        <TextView
+            android:id="@+id/terms_and_policy_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_60"
+            android:gravity="center"
+            android:text="@string/by_clicking_next_you_agree_to_the_yetisnap_s"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toLeftOf="@+id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/tv_next_id" />
+
+        <TextView
+            android:id="@+id/login_with_password_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_an_account_log_in_with_passcode"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toLeftOf="@+id/guideline_right"
+            android:layout_marginTop="110dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="32dp" />
+
+        <TextView
+            android:id="@+id/terms_of_services_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/terms_of_services"
+            android:textColor="@color/colorDarkSkyBlue"
+            app:layout_constraintRight_toLeftOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/terms_and_policy_id" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/and"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toLeftOf="@+id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/terms_and_policy_id" />
+
+        <TextView
+            android:id="@+id/privacy_policy_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/colorDarkSkyBlue"
+            app:layout_constraintLeft_toRightOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/terms_and_policy_id" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
