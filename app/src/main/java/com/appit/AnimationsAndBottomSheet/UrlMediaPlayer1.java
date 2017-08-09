@@ -1,13 +1,12 @@
 package com.appit.AnimationsAndBottomSheet;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -55,7 +54,7 @@ public class UrlMediaPlayer1 extends AppCompatActivity {
             mediaPlayer.prepareAsync();
 
             // create a progress dialog (waiting media player preparation)
-            final ProgressDialog dialog = new ProgressDialog(UrlMediaPlayer1.this);
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(UrlMediaPlayer1.this);
 
             // set message of the dialog
             dialog.setMessage(getString(R.string.loading));
@@ -64,7 +63,7 @@ public class UrlMediaPlayer1 extends AppCompatActivity {
             dialog.setCancelable(false);
 
             // show dialog at the bottom
-            dialog.getWindow().setGravity(Gravity.CENTER);
+//            dialog.getContext().setGravity(Gravity.CENTER);
 
             // show dialog
             dialog.show();
@@ -106,10 +105,9 @@ public class UrlMediaPlayer1 extends AppCompatActivity {
                     mRunnable.run();
 
                     //dismiss dialog
-                    dialog.dismiss();
+                    dialog.setCancelable(true);
                 }
             });
-
 
         } catch (IOException e) {
             Activity a = this;
