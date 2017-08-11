@@ -1,122 +1,141 @@
 package com.appit.AnimationsAndBottomSheet;
-
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
+
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
-
-public class MusicPlayerDemo extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
-
-        private Button buttonPlayPause;
-        private SeekBar seekBarProgress;
-
-        private MediaPlayer mediaPlayer;
-        private int mediaFileLengthInMilliseconds; // this value contains the song duration in milliseconds. Look at getDuration() method in MediaPlayer class
-
-        private final Handler handler = new Handler();
-
-        /** Called when the activity is first created. */
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_music_player_demo);
+import android.widget.TextView;
+import android.widget.Toast;
+import java.util.concurrent.TimeUnit;
 
 
-            buttonPlayPause = (Button)findViewById(R.id.ButtonTestPlayPause);
-            buttonPlayPause.setOnClickListener(this);
+public class MusicPlayerDemo extends Activity {
+    private Button b1,b2,b3,b4;
+    private ImageView iv;
+    private MediaPlayer mediaPlayer;
 
-            seekBarProgress = (SeekBar)findViewById(R.id.SeekBarTestPlay);
-            seekBarProgress.setMax(99); // It means 100% .0-99
-            seekBarProgress.setOnTouchListener(this);
+    private double startTime = 0;
+    private double finalTime = 0;
 
+    private Handler myHandler = new Handler();;
+    private int forwardTime = 5000;
+    private int backwardTime = 5000;
+    private SeekBar seekbar;
+    private TextView tx1,tx2,tx3;
 
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setOnBufferingUpdateListener(this);
-            mediaPlayer.setOnCompletionListener(this);
-        }
-
-        /** Method which updates the SeekBar progress by current song playing position*/
-        private void primarySeekBarProgressUpdater() {
-            seekBarProgress.setProgress((int)(((float)mediaPlayer.getCurrentPosition()/mediaFileLengthInMilliseconds)*100)); // This math construction give a percentage of "was playing"/"song length"
-            if (mediaPlayer.isPlaying()) {
-                Runnable notification = new Runnable() {
-                    public void run() {
-                        primarySeekBarProgressUpdater();
-                    }
-                };
-                handler.postDelayed(notification,1000);
-            }
-        }
-        @SuppressLint("ClickableViewAccessibility")
-
-     /*   @Override
-        public void onCompletion(MediaPlayer mp) {
-            *//** MediaPlayer onCompletion event handler. Method which calls then song playing is complete*//*
-            buttonPlayPause.setText("Play");
-        }
-
-        @Override
-        public void onBufferingUpdate(MediaPlayer mp, int percent) {
-            *//** Method which updates the SeekBar secondary progress by current song loading from URL position*//*
-            seekBarProgress.setSecondaryProgress(percent);
-        }*/
-
+    public static int oneTimeOnly = 0;
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.ButtonTestPlayPause){
-            /** ImageButton onClick event handler. Method which start/pause mediaplayer playing */
-            try {
-//                mediaPlayer.setDataSource("http://clientapp.narolainfotech.com/TestMusic/songLong.mp3"); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
-                mediaPlayer.setDataSource("http://naasongsdownload.com/Telugu/2017%20naasongs" +
-                        ".audio/Baahubali%202%20-%20The%20Conclusion%20(2017)%20~128Kbps-Naasongs" +
-                        ".Audio/01%20-%20Saahore%20Baahubali%20-Naasongs.Audio.mp3");
-                mediaPlayer.prepare(); // you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
-            } catch (Exception e) {
-                e.printStackTrace();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        b1 = (Button) findViewById(R.id.button);
+        b2 = (Button) findViewById(R.id.button2);
+        b3 = (Button)findViewById(R.id.button3);
+        b4 = (Button)findViewById(R.id.button4);
+        iv = (ImageView)findViewById(R.id.imageView);
+
+        tx1 = (TextView)findViewById(R.id.textView2);
+        tx2 = (TextView)findViewById(R.id.textView3);
+        tx3 = (TextView)findViewById(R.id.textView4);
+        tx3.setText("Song.mp3");
+
+        mediaPlayer = MediaPlayer.create(this,R.raw.bahubali_song);
+        seekbar = (SeekBar)findViewById(R.id.seekBar);
+        seekbar.setClickable(false);
+        b2.setEnabled(false);
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Playing sound",Toast.LENGTH_SHORT).show();
+                        mediaPlayer.start();
+
+                finalTime = mediaPlayer.getDuration();
+                startTime = mediaPlayer.getCurrentPosition();
+
+                if (oneTimeOnly == 0) {
+                    seekbar.setMax((int) finalTime);
+                    oneTimeOnly = 1;
+                }
+
+                tx2.setText(String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+                        TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+                                        finalTime)))
+                );
+
+                tx1.setText(String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                        TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+                                        startTime)))
+                );
+
+                seekbar.setProgress((int)startTime);
+                myHandler.postDelayed(UpdateSongTime,100);
+                b2.setEnabled(true);
+                b3.setEnabled(false);
             }
+        });
 
-            mediaFileLengthInMilliseconds = mediaPlayer.getDuration(); // gets the song length in milliseconds from URL
-
-            if(!mediaPlayer.isPlaying()){
-                mediaPlayer.start();
-                buttonPlayPause.setText("Pause");
-            }else {
-                mediaPlayer.pause();
-                buttonPlayPause.setText("Play");
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Pausing sound",Toast.LENGTH_SHORT).show();
+                        mediaPlayer.pause();
+                b2.setEnabled(false);
+                b3.setEnabled(true);
             }
+        });
 
-            primarySeekBarProgressUpdater();
-        }
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = (int)startTime;
+
+                if((temp+forwardTime)<=finalTime){
+                    startTime = startTime + forwardTime;
+                    mediaPlayer.seekTo((int) startTime);
+                    Toast.makeText(getApplicationContext(),"You have Jumped forward 5 seconds",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Cannot jump forward 5 seconds",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = (int)startTime;
+
+                if((temp-backwardTime)>0){
+                    startTime = startTime - backwardTime;
+                    mediaPlayer.seekTo((int) startTime);
+                    Toast.makeText(getApplicationContext(),"You have Jumped backward 5 seconds",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Cannot jump backward 5 seconds",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent motionEvent) {
-        if(v.getId() == R.id.SeekBarTestPlay){
-            /** Seekbar onTouch event handler. Method which seeks MediaPlayer to seekBar primary progress position*/
-            if(mediaPlayer.isPlaying()){
-                SeekBar sb = (SeekBar)v;
-                int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
-                mediaPlayer.seekTo(playPositionInMillisecconds);
-            }
+    private Runnable UpdateSongTime = new Runnable() {
+        public void run() {
+            startTime = mediaPlayer.getCurrentPosition();
+            tx1.setText(String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                    TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                    toMinutes((long) startTime)))
+            );
+            seekbar.setProgress((int)startTime);
+            myHandler.postDelayed(this, 100);
         }
-        return false;
-    }
-
-    @Override
-    public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
-        /** Method which updates the SeekBar secondary progress by current song loading from URL position*/
-        seekBarProgress.setSecondaryProgress(i);
-    }
-
-    @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
-        /** MediaPlayer onCompletion event handler. Method which calls then song playing is complete*/
-        buttonPlayPause.setText("Play");
-    }
+    };
 }
-

@@ -7,14 +7,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.io.IOException;
 
 public class MusicPlayer extends AppCompatActivity {
     private Button btn;
+    private Button b1,b2,b3,b4;
+    private SeekBar seekbar;
+    private TextView tx1,tx2,tx3;
+
     /**
      * help to toggle between play and pause.
      */
@@ -24,16 +29,29 @@ public class MusicPlayer extends AppCompatActivity {
      * remain false till media is not completed, inside OnCompletionListener make it true.
      */
     private boolean intialStage = true;
+    View musicPlayerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
+
+        musicPlayerLayout=findViewById(R.id.music_player_layout);
+        b1 = (Button) findViewById(R.id.button);
+        b2 = (Button) findViewById(R.id.button2);
+        b3 = (Button)findViewById(R.id.button3);
+        b4 = (Button)findViewById(R.id.button4);
+
+        tx1 = (TextView)findViewById(R.id.textView2);
+        tx2 = (TextView)findViewById(R.id.textView3);
+        tx3 = (TextView)findViewById(R.id.textView4);
+
 
 
         btn=(Button)findViewById(R.id.button1);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         btn.setOnClickListener(pausePlay);
+
     }
 
 
@@ -45,17 +63,19 @@ public class MusicPlayer extends AppCompatActivity {
             // TODO Auto-generated method stub
 
             if (!playPause) {
-                btn.setBackgroundResource(R.drawable.button_pause);
+                btn.setText("Pause");
+//                btn.setBackgroundResource(R.drawable.button_pause);
                 if (intialStage)
                     new Player()
-                            .execute("http://www.virginmegastore.me/Library/Music/CD_001214/Tracks/Track1.mp3");
+                            .execute("http://naasongsdownload.com/Telugu/2017%20naasongs.audio/Baahubali%202%20-%20The%20Conclusion%20(2017)%20~128Kbps-Naasongs.Audio/01%20-%20Saahore%20Baahubali%20-Naasongs.Audio.mp3");
                 else {
                     if (!mediaPlayer.isPlaying())
                         mediaPlayer.start();
                 }
                 playPause = true;
             } else {
-                btn.setBackgroundResource(R.drawable.button_play);
+                btn.setText("Play");
+//                btn.setBackgroundResource(R.drawable.button_play);
                 if (mediaPlayer.isPlaying())
                     mediaPlayer.pause();
                 playPause = false;
@@ -86,7 +106,8 @@ public class MusicPlayer extends AppCompatActivity {
                         // TODO Auto-generated method stub
                         intialStage = true;
                         playPause=false;
-                        btn.setBackgroundResource(R.drawable.button_play);
+                        btn.setText("Play");
+//                        btn.setBackgroundResource(R.drawable.button_play);
                         mediaPlayer.stop();
                         mediaPlayer.reset();
                     }
@@ -110,8 +131,6 @@ public class MusicPlayer extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 prepared = false;
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
             return prepared;
         }
@@ -130,7 +149,7 @@ public class MusicPlayer extends AppCompatActivity {
         }
 
         public Player() {
-            progress = new ProgressDialog(MainActivity.this);
+            progress = new ProgressDialog(MusicPlayer.this);
         }
 
         @Override

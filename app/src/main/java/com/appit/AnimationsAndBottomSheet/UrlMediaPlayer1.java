@@ -23,6 +23,8 @@ import java.io.IOException;
 public class UrlMediaPlayer1 extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private SeekBar seekBar;
+    private boolean intialStage = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
