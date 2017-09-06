@@ -3,6 +3,7 @@ package com.appit.AnimationsAndBottomSheet;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +20,7 @@ public class VerifyMobileNumber extends AppCompatActivity implements View.OnClic
     Context context;
     String myPhoneNum;
     TextView next;
+    String locale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +36,30 @@ public class VerifyMobileNumber extends AppCompatActivity implements View.OnClic
         next.setOnClickListener(this);
 
         countryCode.setText("+"+getCountryDialCode());
-        phoneNumber.setText(getMyPhoneNO());
-
-
-
+        phoneNumber.setText(" "+getMyPhoneNO());
 
     }
     public String getCountryDialCode(){
-        String countryId = null;
+
+      /*  String countryId = null;
         String countryDialCode = null;
 
         TelephonyManager telephonyMngr = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
 
         countryId = telephonyMngr.getSimCountryIso().toUpperCase();
+        countryId = telephonyMngr.getNetworkCountryIso().toUpperCase();
+*/
+        String countryDialCode = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = context.getResources().getConfiguration().getLocales().get(0).getCountry();
+        } else {
+            locale = context.getResources().getConfiguration().locale.getCountry();
+        }
         String[] arrCountryCode=this.getResources().getStringArray(R.array.DialingCountryCode);
         for(int i=0; i<arrCountryCode.length; i++){
             String[] arrDial = arrCountryCode[i].split(",");
-            if(arrDial[1].trim().equals(countryId.trim())){
+            if(arrDial[1].trim().equals(locale.trim())){
                 countryDialCode = arrDial[0];
                 break;
             }

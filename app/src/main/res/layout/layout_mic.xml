@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="@+id/ch_record_timer" />
 
     <ImageView
-        android:id="@+id/iv_send"
+        android:id="@+id/send_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_send"

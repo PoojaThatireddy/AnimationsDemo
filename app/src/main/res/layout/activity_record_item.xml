@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/dp_8"
+    android:padding="@dimen/dp_8"
+    android:gravity="center_vertical"
+    android:background="@drawable/shadow_rounded_rectangle"
+    tools:context="com.appit.AnimationsAndBottomSheet.ActivityRecordItem">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/play_record_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play"
+            />
+        <ImageView
+            android:id="@+id/pause_record_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pause"
+            android:visibility="invisible"/>
+        <ProgressBar
+            android:id="@+id/progressbar_id"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="invisible"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/record_timer_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:layout_marginLeft="@dimen/dp_8"/>
+
+    <SeekBar
+        android:id="@+id/seekBar_id"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="@dimen/dp_8" />
+</LinearLayout>

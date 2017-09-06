@@ -75,6 +75,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="+1"
+            android:focusableInTouchMode="false"
             android:inputType="number"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
