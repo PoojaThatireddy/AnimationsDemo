@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="4dp"
     android:background="@drawable/colorBackground"
     android:orientation="vertical"
     tools:context="com.appit.AnimationsAndBottomSheet.ActivityYetiSettings">
@@ -18,7 +16,7 @@
 
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
+            android:id="@+id/toolbar_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -37,10 +35,10 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp_18"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-            app:layout_constraintLeft_toLeftOf="@+id/toolbar2"
-            app:layout_constraintRight_toRightOf="@+id/toolbar2"
-            app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_id"
+            app:layout_constraintLeft_toLeftOf="@+id/toolbar_id"
+            app:layout_constraintRight_toRightOf="@+id/toolbar_id"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_id" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

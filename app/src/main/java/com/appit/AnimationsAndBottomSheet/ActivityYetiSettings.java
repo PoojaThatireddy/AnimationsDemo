@@ -75,7 +75,7 @@ public class ActivityYetiSettings extends AppCompatActivity {
                                     public void onClick(View view) {
                                         value = input.getText().toString();
 
-                                        if (value.length()>0 && value.equals("DELETE")) {
+                                        if (value.length()>0 && (value.equals("DELETE")||value.equals("delete"))) {
 
                                             Log.v("Tag", "delete successfully");
                                             Toast.makeText(getApplicationContext(), "File deleted ", Toast.LENGTH_SHORT).show();
