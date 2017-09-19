@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.appit.AnimationsAndBottomSheet.ActivityVideoTest">
+
+
+
+    <Button android:text="Capture Video"
+        android:id="@+id/CaptureVideoButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button android:text="Capture Video without Data"
+        android:id="@+id/CaptureVideoWithoutDataButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button android:text="Play Video"
+        android:id="@+id/PlayVideoButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </Button>
+  <!--  <android.support.v7.widget.RecyclerView
+        android:id="@+id/video_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+-->
+  <!--  <VideoView android:id="@+id/videoView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>-->
+
+    <cn.jzvd.JZVideoPlayerStandard
+        android:id="@+id/videoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+</LinearLayout>
